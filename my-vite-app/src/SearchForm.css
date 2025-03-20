@@ -1,0 +1,23 @@
+.input-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.weather-input {
+  width: 100%;
+  padding: 10px 10px 10px 35px; /* Extra left padding for the icon */
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;  /* Adjust the icon position */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 16px;
+}

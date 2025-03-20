@@ -1,0 +1,100 @@
+/* Default Light Mode */
+:root {
+  --toggle-bg-light: #ddd;
+  --toggle-bg-dark: #007bff;
+  --toggle-fg-light: white;
+  --toggle-fg-dark: yellow;
+
+  /* Add global theme variables */
+  --bg-color: white;
+  --text-color: black;
+}
+
+/* Dark Mode */
+.dark-mode {
+  --toggle-bg-light: #007bff;
+  --toggle-bg-dark: #ddd;
+  --toggle-fg-light: yellow;
+  --toggle-fg-dark: white;
+
+  /* Dark mode global variables */
+  --bg-color: black;
+  --text-color: white;
+}
+
+/* Apply to entire page */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Position the toggle in the top-right */
+.toggle-container {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+}
+
+/* Hide default checkbox */
+.toggle {
+  display: none;
+}
+
+/* Style the toggle switch */
+.toggle-label {
+  display: flex;
+  align-items: center;
+  width: 50px;
+  height: 25px;
+  background-color: var(--toggle-bg-light);
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out;
+}
+
+/* Toggle circle */
+.toggle-label::after {
+  content: "";
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: var(--toggle-fg-light);
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+
+/* Move toggle circle to the right when checked */
+.toggle:checked + .toggle-label::after {
+  transform: translate(25px, -50%);
+  background-color: var(--toggle-fg-dark);
+}
+
+/* Change background color when checked */
+.toggle:checked + .toggle-label {
+  background-color: var(--toggle-bg-dark);
+}
+
+/* Icons inside toggle */
+.toggle-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+/* Sun on the left */
+.sun {
+  left: 5px;
+  color: white;
+}
+
+/* Moon on the right */
+.moon {
+  right: 5px;
+  color: yellow;
+}
