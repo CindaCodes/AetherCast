@@ -7,7 +7,7 @@ export default function Form() {
       <form className="text-center">
         <input
           type="search"
-          placeholder="Enter a city.."
+          placeholder="🔍  Enter a city.."
           className="weather-input mx-1"
         />
         <button type="submit" className="weather-button ">

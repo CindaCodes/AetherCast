@@ -1,35 +1,58 @@
-/* Default Light Mode */
+/* 🎨 Light Mode (Soft Green Theme) */
 :root {
   --toggle-bg-light: #ddd;
   --toggle-bg-dark: #007bff;
   --toggle-fg-light: white;
   --toggle-fg-dark: yellow;
 
-  /* Add global theme variables */
-  --bg-color: white;
-  --text-color: black;
+  /* 🌿 Light Theme Variables */
+  --bg-color: #e9fadd;  /* Soft pastel green */
+  --text-color: #3f5468; /* Slate blue text */
+  --primary-box-color: #b8e4c9; /* Light green */
+  --secondary-box-color: #3f5468; /* Slate blue */
+  --accent-box-color: #42291c; /* Deep brown */
 }
 
-/* Dark Mode */
+/* 🌙 Dark Mode (Rich Brown & Slate Theme) */
 .dark-mode {
   --toggle-bg-light: #007bff;
   --toggle-bg-dark: #ddd;
   --toggle-fg-light: yellow;
   --toggle-fg-dark: white;
 
-  /* Dark mode global variables */
-  --bg-color: black;
-  --text-color: white;
+  /* 🏡 Dark Theme Variables */
+  --bg-color: #42291c;  /* Deep brown */
+  --text-color: #b8e4c9; /* Muted pastel green */
+  --primary-box-color: #3f5468; /* Slate blue */
+  --secondary-box-color: #b8e4c9; /* Light green */
+  --accent-box-color: #e9fadd; /* Softest green */
 }
 
-/* Apply to entire page */
+/* 📌 Apply the background & text color */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: all 0.3s ease-in-out;
 }
 
-/* Position the toggle in the top-right */
+/* 📦 Box Styling */
+.rectangular-box,
+.box{
+  background: var(--primary-box-color);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-weight: bold;
+}
+
+/* 🌟 Secondary boxes */
+.box {
+  background: var(--secondary-box-color);
+  height: 80px;
+}
+
+/* 🌙 Toggle Theme Button */
 .toggle-container {
   position: absolute;
   top: 2em;
@@ -41,12 +64,12 @@ body {
   display: none;
 }
 
-/* Style the toggle switch */
+/* 🎛️ Toggle Styling */
 .toggle-label {
   display: flex;
   align-items: center;
-  width: 50px;
-  height: 25px;
+  width: 55px;
+  height: 30px;
   background-color: var(--toggle-bg-light);
   border-radius: 25px;
   position: relative;
@@ -54,7 +77,7 @@ body {
   transition: background-color 250ms ease-in-out;
 }
 
-/* Toggle circle */
+/* 🌙 Toggle Circle */
 .toggle-label::after {
   content: "";
   height: 20px;
@@ -68,23 +91,23 @@ body {
   transition: transform 250ms ease-in-out, background-color 250ms ease-in-out;
 }
 
-/* Move toggle circle to the right when checked */
+/* 🟡 Move toggle circle on click */
 .toggle:checked + .toggle-label::after {
-  transform: translate(25px, -50%);
+  transform: translate(28px, -50%);
   background-color: var(--toggle-fg-dark);
 }
 
-/* Change background color when checked */
+/* 🌗 Toggle background changes */
 .toggle:checked + .toggle-label {
   background-color: var(--toggle-bg-dark);
 }
 
-/* Icons inside toggle */
+/* ☀️ Moon & Sun Icons */
 .toggle-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: 20px;
 }
 
 /* Sun on the left */

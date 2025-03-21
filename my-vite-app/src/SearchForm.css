@@ -12,12 +12,3 @@
   outline: none;
   font-size: 16px;
 }
-
-.search-icon {
-  position: absolute;
-  left: 10px;  /* Adjust the icon position */
-  top: 50%;
-  transform: translateY(-50%);
-  color: #888;
-  font-size: 16px;
-}
