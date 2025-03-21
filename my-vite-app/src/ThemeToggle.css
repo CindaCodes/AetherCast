@@ -6,7 +6,7 @@
   --toggle-fg-dark: yellow;
 
   /* 🌿 Light Theme Variables */
-  --bg-color: #e9fadd;  /* Soft pastel green */
+  --bg-color: #e9fadd; /* Soft pastel green */
   --text-color: #3f5468; /* Slate blue text */
   --primary-box-color: #b8e4c9; /* Light green */
   --secondary-box-color: #3f5468; /* Slate blue */
@@ -21,7 +21,7 @@
   --toggle-fg-dark: white;
 
   /* 🏡 Dark Theme Variables */
-  --bg-color: #42291c;  /* Deep brown */
+  --bg-color: #42291c; /* Deep brown */
   --text-color: #b8e4c9; /* Muted pastel green */
   --primary-box-color: #3f5468; /* Slate blue */
   --secondary-box-color: #b8e4c9; /* Light green */
@@ -37,7 +37,7 @@ body {
 
 /* 📦 Box Styling */
 .rectangular-box,
-.box{
+.box {
   background: var(--primary-box-color);
   padding: 20px;
   border-radius: 12px;
@@ -47,7 +47,7 @@ body {
 }
 
 /* 🌟 Secondary boxes */
-.box {
+.rectangular-box {
   background: var(--secondary-box-color);
   height: 80px;
 }
