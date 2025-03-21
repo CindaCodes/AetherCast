@@ -3,23 +3,25 @@ import Footer from "./Footer";
 import Form from "./Form";
 import ThemeToggle from "./ThemeToggle";
 import "./Weather.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Weather() {
   return (
     <div className="Weather">
-      {/* Header Row */}
-      <div className="row gap-sm-3 align-items-center justify-content-between">
-        <div className="city">City</div>
-        <div className="form">
-          <Form />
-        </div>
-        <div className="text-end">
-          <ThemeToggle />
-        </div>
-      </div>
-
       {/* 🌟 Main Grid Layout */}
       <div className="grid-container">
+        <div className="header-box " style={{ gridArea: "header-1" }}>
+          <ThemeToggle />
+        </div>
+        <div
+          className="header-box display-4 text-center"
+          style={{ gridArea: "header-2" }}
+        >
+          City
+        </div>
+        <div className="header-box" style={{ gridArea: "header-3" }}>
+          <Form />
+        </div>
         <div className="box" style={{ gridArea: "box-1" }}>
           Big Weather Box
         </div>
@@ -56,9 +58,10 @@ export default function Weather() {
         <div className="rectangular-box" style={{ gridArea: "box-12" }}>
           Chance of Rain Hourly Graph
         </div>
+        <div className="box" style={{ gridArea: "footer" }}>
+          <Footer />
+        </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

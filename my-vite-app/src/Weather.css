@@ -1,41 +1,52 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr 1fr 1fr;
   gap: 1em;
   grid-template-areas:
+    "header-1 header-2 header-2 header-2 header-3 header-3"
     "box-1 box-1 box-2 box-2 box-3 box-4"
     "box-1 box-1 box-5 box-6 box-3 box-4"
     "box-1 box-1 box-5 box-6 box-7 box-8"
     "box-1 box-1 box-10 box-11 box-7 box-8"
-    "box-9 box-9 box-10 box-11 box-12 box-12";
+    "box-9 box-9 box-10 box-11 box-12 box-12"
+    "footer footer footer footer footer footer";
 }
 
 .box {
   height: 100%;
 }
 
+/* Responsive improvements */
 @media (max-width: 56em) {
   .grid-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto repeat(9, 1fr) auto;
     grid-template-areas:
-      "box-5 box-1 box-1  box-4"
-      "box-5 box-1 box-1  box-4"
-      "box-6 box-1 box-1  box-8"
-      "box-6 box-1 box-1  box-8"
-      "box-3 box-9 box-9 box-10"
-      "box-3 box-2 box-2 box-10"
-      "box-7 box-12 box-12 box-11"
-      "box-7 box-12 box-12 box-11";
+    "header-1 header-1 header-1 header-1"
+     "header-2 header-2 header-2 header-2"
+     "header-3 header-3 header-3 header-3"
+      "box-5 box-1 box-1 box-4"
+      "box-5 box-1 box-1 box-4"
+      "box-6 box-1 box-1 box-8"
+      "box-6 box-1 box-1 box-8"
+      "box-9 box-9 box-9 box-9"
+      "box-3 box-7 box-11 box-10"
+      "box-3 box-7 box-11 box-10"
+      "box-2 box-2 box-2 box-2"
+      "box-12 box-12 box-12 box-12"
+      "footer footer footer footer";
   }
 }
 
 @media (max-width: 42em) {
   .grid-container {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto repeat(15, 1fr) auto;
     grid-template-areas:
+     "header-1 header-1"
+     "header-2 header-2"
+     "header-3 header-3"
       "box-1 box-1"
       "box-1 box-1"
       "box-1 box-1"
@@ -50,6 +61,7 @@
       "box-7 box-8"
       "box-10 box-11"
       "box-10 box-11"
-      "box-12 box-12";
+      "box-12 box-12"
+      "footer footer";
   }
 }

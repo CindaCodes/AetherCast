@@ -3,14 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Form() {
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <form className="text-center">
+    <div className="input-container text-center">
+      <form>
         <input
           type="search"
-          placeholder="🔍  Enter a city.."
-          className="weather-input mx-1"
+          placeholder="🔍 Enter a city..."
+          className="weather-input"
         />
-        <button type="submit" className="weather-button ">
+        <button type="submit" className="btn mx-3 weather-button">
           Search
         </button>
       </form>
