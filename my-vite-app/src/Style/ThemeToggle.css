@@ -57,7 +57,7 @@ body {
 }
 
 /* 🌿 Button */
-.weather-button {
+.weather-button, button {
   background-color: var(--secondary-box-color);
   color: var(--bg-color);
   font-weight: 600;
@@ -67,7 +67,7 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-.weather-button:hover {
+.weather-button:hover, button:hover{
   background-color: var(--accent-box-color);
   color: var(--secondary-box-color);
 }

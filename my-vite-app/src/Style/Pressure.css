@@ -25,14 +25,12 @@
 
 .pressure-needle {
   position: absolute;
-  width: 4px;
-  height: 70px;
-  background-color: #f39c12;
-  top: 10px;
+  top: 10%;
   left: 50%;
+  width: 2px;
+  height: 40%;
+  background-color: red;
   transform-origin: bottom center;
-  border-radius: 2px;
-  box-shadow: 0 0 4px #f39c12;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -46,5 +44,16 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
   transform: translate(-50%, -50%);
 }

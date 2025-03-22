@@ -11,6 +11,7 @@ const Pressure = ({ pressure }) => {
   );
   const rotation = normalized * 180 - 90;
 
+
   let icon = "CLOUDY";
   if (pressure > 1020) icon = "CLEAR_DAY";
   else if (pressure < 990) icon = "RAIN";
@@ -29,8 +30,12 @@ const Pressure = ({ pressure }) => {
         />
         <div className="pressure-icon-center">
           <ReactAnimatedWeather icon={icon} color="#fff" size={36} animate />
-          
         </div>
+        <div className="center-dot"></div>
+        <div className="dir n">1010</div>
+        <div className="dir e">1300</div>
+        <div className="dir s">970</div>
+        <div className="dir w">990</div>
       </div>
       <div className="pressure-value">{pressure} hPa</div>
     </div>

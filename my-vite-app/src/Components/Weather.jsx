@@ -12,6 +12,7 @@ import WindCompass from "./WindCompass";
 import UVIndex from "./UVIndex";
 import AirQuality from "./AirQuality";
 import Pressure from "./Pressure";
+import VisibilityGauge from "./Visibility";
 
 export default function Weather() {
   const [weatherData, setWeatherData] = useState(null);
@@ -39,7 +40,7 @@ export default function Weather() {
   useEffect(() => {
     const fetchWeather = async () => {
       const apiKey = import.meta.env.VITE_API_KEY;
-      const city = "Oslo";
+      const city = "Denver";
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
 
       try {
@@ -180,7 +181,7 @@ export default function Weather() {
         </div>
 
         <div className="box" style={{ gridArea: "box-10" }}>
-          Visibility
+          <VisibilityGauge visibility={weatherData.visibility} />
         </div>
         <div className="box" style={{ gridArea: "box-11" }}>
           <Pressure pressure={weatherData.main.pressure} />
