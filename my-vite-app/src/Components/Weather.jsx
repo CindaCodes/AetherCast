@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
-import Footer from "./Footer";
-import Form from "./Form";
-import ThemeToggle from "./ThemeToggle";
 import "../Style/Weather.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-import ReactAnimatedWeather from "react-animated-weather";
-import Humidity from "./Humidity";
-import RainChart from "./RainChart";
-import WindCompass from "./WindCompass";
-import UVIndex from "./UVIndex";
+import { useEffect, useState } from "react";
 import AirQuality from "./AirQuality";
+import axios from "axios";
+import Footer from "./Footer";
+import Form from "./Form";
+import Humidity from "./Humidity";
 import Pressure from "./Pressure";
+import RainChart from "./RainChart";
+import ReactAnimatedWeather from "react-animated-weather";
+import SunCycle from "./SunCycle";
+import ThemeToggle from "./ThemeToggle";
+import UVIndex from "./UVIndex";
 import VisibilityGauge from "./Visibility";
+import WindCompass from "./WindCompass";
+import HourlyForecast from "./HourlyForecast";
+
 
 export default function Weather() {
   const [weatherData, setWeatherData] = useState(null);
@@ -20,6 +23,9 @@ export default function Weather() {
   const [airQuality, setAirQuality] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [unit, setUnit] = useState("metric");
+
+  const [city, setCity] = useState("Denver"); // ✅ move this here
+
   const weatherIcons = {
     Clear: "CLEAR_DAY",
     Clouds: "CLOUDY",
@@ -38,44 +44,40 @@ export default function Weather() {
   };
 
   useEffect(() => {
-    const fetchWeather = async () => {
+    const fetchWeather = async (lat, lon) => {
       const apiKey = import.meta.env.VITE_API_KEY;
-      const city = "Denver";
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
-
       try {
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
         const response = await axios.get(weatherUrl);
         setWeatherData(response.data);
 
-        // ✅ Get Latitude & Longitude for Air Quality
-        const { lat, lon } = response.data.coord;
         const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-        // ✅ Fetch Air Quality Data Correctly
         const airResponse = await axios.get(airQualityUrl);
         setAirQuality(airResponse.data.list[0]);
 
-        // ✅ Fetch Hourly Forecast
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
         const forecastResponse = await axios.get(forecastUrl);
         setHourlyForecast(forecastResponse.data.list.slice(0, 7));
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching weather data:", error);
       }
     };
 
-    fetchWeather();
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchWeather(latitude, longitude);
+      },
+      () => {
+        // fallback to default city if location denied
+        const defaultLat = 39.7392; // Denver
+        const defaultLon = -104.9903;
+        fetchWeather(defaultLat, defaultLon);
+      }
+    );
   }, [unit, is24Hour]);
 
   if (!weatherData || !weatherData.coord) return <div>Loading...</div>;
-
-  const sunriseTime = new Date(
-    weatherData.sys.sunrise * 1000
-  ).toLocaleTimeString("en-US", options);
-  const sunsetTime = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString(
-    "en-US",
-    options
-  );
 
   return (
     <div className="Weather">
@@ -91,7 +93,7 @@ export default function Weather() {
           {weatherData.name}
         </div>
         <div className="header-box" style={{ gridArea: "header-3" }}>
-          <Form />
+          <Form onSearch={setCity} />
         </div>
         <div className="box" style={{ gridArea: "box-1" }}>
           <ReactAnimatedWeather
@@ -113,21 +115,19 @@ export default function Weather() {
           >
             {unit === "metric" ? "Switch to °F" : "Switch to °C"}
           </button>
-        </div>
-        <div className="rectangular-box" style={{ gridArea: "box-2" }}>
-          <AirQuality aqi={airQuality?.main?.aqi || 1} />
-        </div>
-
-        <div className="box" style={{ gridArea: "box-3" }}>
-          <p>Sunrise: {sunriseTime}</p>
-          <p>Sunset: {sunsetTime}</p>
-
           <button
             className="toggle-button"
             onClick={() => setIs24Hour(!is24Hour)}
           >
             {is24Hour ? "12-Hour" : "24-Hour"}
           </button>
+        </div>
+        <div className="rectangular-box" style={{ gridArea: "box-2" }}>
+          <AirQuality aqi={airQuality?.main?.aqi || 1} />
+        </div>
+
+        <div className="box" style={{ gridArea: "box-3" }}>
+          <Pressure pressure={weatherData.main.pressure} />
         </div>
         <div className="box" style={{ gridArea: "box-4" }}>
           <WindCompass
@@ -140,52 +140,29 @@ export default function Weather() {
           <UVIndex uv={weatherData.uvi || 3} />
         </div>
         <div className="box" style={{ gridArea: "box-6" }}>
-          Precipitation
-        </div>
-        <div className="box" style={{ gridArea: "box-7" }}>
-          Feels Like
-        </div>
-        <div className="box" style={{ gridArea: "box-8" }}>
-          <h5>Humidity</h5>
           <Humidity humidity={weatherData.main.humidity} />
         </div>
+        <div className="box" style={{ gridArea: "box-7" }}>
+          <SunCycle
+            sunrise={weatherData.sys.sunrise}
+            sunset={weatherData.sys.sunset}
+            currentTime={Date.now()}
+          />
+        </div>
+        <div className="box" style={{ gridArea: "box-8" }}></div>
         <div className="rectangular-box" style={{ gridArea: "box-9" }}>
-          <h6>Hourly Forecast</h6>
-          {hourlyForecast.length > 0 ? (
-            <div className="hourly-forecast">
-              {hourlyForecast.map((hour, index) => (
-                <div key={index} className="hour">
-                  <p>
-                    {new Date(hour.dt * 1000).toLocaleTimeString("en-US", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: !is24Hour,
-                    })}
-                  </p>
-                  <ReactAnimatedWeather
-                    icon={weatherIcons[hour.weather?.[0]?.main] || "CLOUDY"}
-                    color="#757882"
-                    size={40}
-                    animate={true}
-                  />
-                  <p>
-                    {Math.round(hour.main.temp)}
-                    {unit === "metric" ? "°C" : "°F"}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>Loading hourly forecast...</p>
-          )}
+          <HourlyForecast
+            hourlyForecast={hourlyForecast}
+            is24Hour={is24Hour}
+            unit={unit}
+            weatherIcons={weatherIcons}
+          />
         </div>
 
         <div className="box" style={{ gridArea: "box-10" }}>
           <VisibilityGauge visibility={weatherData.visibility} />
         </div>
-        <div className="box" style={{ gridArea: "box-11" }}>
-          <Pressure pressure={weatherData.main.pressure} />
-        </div>
+        <div className="box" style={{ gridArea: "box-11" }}></div>
 
         <div className="rectangular-box" style={{ gridArea: "box-12" }}>
           <h6>Chance of Rain</h6>

@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+export default function Form({ onSearch }) {
+  const [cityInput, setCityInput] = useState("");
 
-export default function Form() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (cityInput.trim() !== "") {
+      onSearch(cityInput.trim());
+    }
+  };
+
   return (
-    <div className="input-container text-center">
-      <form>
-        <input
-          type="search"
-          placeholder="🔍 Enter a city..."
-          className="weather-input"
-        />
-        <button type="submit" className="btn mx-3 weather-button">
-          Search
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Enter a city..."
+        value={cityInput}
+        onChange={(e) => setCityInput(e.target.value)}
+        class="weather-input"
+      />
+      <button type="submit">Search</button>
+    </form>
   );
 }

@@ -1,29 +1,29 @@
-import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement, Tooltip } from "chart.js";
+import React from "react";
+import "../Style/Humidity.css";
 
-// Register Chart.js elements
-Chart.register(ArcElement, Tooltip);
-
-const Humidity = ({ humidity }) => {
-  const data = {
-    datasets: [
-      {
-        data: [humidity, 100 - humidity], 
-        backgroundColor: ["#007bff", "#ddd"], 
-        borderWidth: 0,
-        cutout: "75%", 
-        circumference: 180, 
-        rotation: 270, 
-      },
-    ],
+export default function Humidity({ humidity }) {
+  const getLabel = (value) => {
+    if (value < 30) return "Dry 🌵";
+    if (value < 60) return "Comfortable 😊";
+    if (value < 80) return "Sticky 😓";
+    return "Humid 🥵";
   };
 
+  const percent = Math.min(humidity, 100); // Cap at 100%
+  const leftPosition = `${percent}%`;
+
   return (
-    <div className="humidity-gauge">
-      <Doughnut data={data} />
-      <div className="humidity-text">{humidity}%</div> 
+    <div className="humidity-container">
+      <div className="humidity-title">💧 Humidity</div>
+      <div className="humidity-value">{humidity}%</div>
+      <div className="humidity-label">{getLabel(humidity)}</div>
+
+      <div className="humidity-bar">
+        <div
+          className="humidity-indicator"
+          style={{ left: leftPosition }}
+        ></div>
+      </div>
     </div>
   );
-};
-
-export default Humidity;
+}
