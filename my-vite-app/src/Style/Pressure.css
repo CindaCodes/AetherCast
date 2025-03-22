@@ -1,0 +1,50 @@
+.pressure-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.pressure-label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.pressure-gauge {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border: 8px solid #3f4e5a;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #2f3e4d 40%, #1f2b38 100%);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.pressure-needle {
+  position: absolute;
+  width: 4px;
+  height: 70px;
+  background-color: #f39c12;
+  top: 10px;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 2px;
+  box-shadow: 0 0 4px #f39c12;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pressure-value {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.pressure-icon-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

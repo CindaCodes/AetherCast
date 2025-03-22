@@ -1,0 +1,50 @@
+.uv-container {
+  text-align: center;
+}
+
+.uv-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.uv-value {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.uv-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.uv-bar {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    to right,
+    #2ecc71,
+    #f1c40f,
+    #e67e22,
+    #e74c3c,
+    #8e44ad
+  );
+  margin: 0 auto;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.uv-indicator {
+  position: absolute;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #222;
+}
+
+.uv-advice {
+  font-size: 12px;
+}

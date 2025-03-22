@@ -1,0 +1,148 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto repeat(5, 1fr) auto;
+  gap: 1em;
+  grid-template-areas:
+    "header-1 header-2 header-2 header-3 header-3 header-3"
+    "box-1 box-1 box-2 box-2 box-3 box-4"
+    "box-1 box-1 box-5 box-6 box-12 box-12"
+    "box-9 box-9 box-10 box-6 box-7 box-8"
+    "box- box- box-10 box-11 box-11 box-11"
+    "box- box- box-10 box-11 box-11 box-11"
+    "footer footer footer footer footer footer";
+}
+
+.box, .rectangular-box {
+  height: 100%;
+}
+
+.hourly-forecast {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+
+.hour {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  min-width: 60px;
+}
+
+.hour p {
+  margin: 5px 0;
+}
+
+
+.aqi-bar {
+  height: 25px;
+  width: 100%;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.aqi-level {
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  line-height: 25px;
+  font-weight: bold;
+}
+
+
+/* Color-coding by AQI value */
+.level-1 {
+  width: 20%;
+  background-color: #2ecc71; /* Green */
+}
+.level-2 {
+  width: 40%;
+  background-color: #f1c40f; /* Yellow */
+}
+.level-3 {
+  width: 60%;
+  background-color: #e67e22; /* Orange */
+}
+.level-4 {
+  width: 80%;
+  background-color: #e74c3c; /* Red */
+}
+.level-5 {
+  width: 100%;
+  background-color: #8e44ad; /* Purple */
+}
+.humidity-gauge {
+  position: relative;
+  width: 150px;
+  height: 100px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.humidity-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -10%); /* ✅ Centers the text */
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Optional: Adds contrast */
+}
+
+
+
+/* Responsive improvements */
+@media (max-width: 56em) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto repeat(9, 1fr) auto;
+    grid-template-areas:
+    "header-1 header-1 header-1 header-1"
+     "header-2 header-2 header-2 header-2"
+     "header-3 header-3 header-3 header-3"
+      "box-5 box-1 box-1 box-4"
+      "box-5 box-1 box-1 box-4"
+      "box-6 box-1 box-1 box-8"
+      "box-6 box-1 box-1 box-8"
+      "box-9 box-9 box-9 box-9"
+      "box-3 box-7 box-11 box-10"
+      "box-3 box-7 box-11 box-10"
+      "box-2 box-2 box-2 box-2"
+      "box-12 box-12 box-12 box-12"
+      "footer footer footer footer";
+  }
+}
+
+@media (max-width: 42em) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto repeat(15, 1fr) auto;
+    grid-template-areas:
+     "header-1 header-1"
+     "header-2 header-2"
+     "header-3 header-3"
+      "box-1 box-1"
+      "box-1 box-1"
+      "box-1 box-1"
+      "box-1 box-1"
+      "box-9 box-9"
+      "box-3 box-4"
+      "box-3 box-4"
+      "box-5 box-6"
+      "box-5 box-6"
+      "box-2 box-2"
+      "box-7 box-8"
+      "box-7 box-8"
+      "box-10 box-11"
+      "box-10 box-11"
+      "box-12 box-12"
+      "footer footer";
+  }
+}

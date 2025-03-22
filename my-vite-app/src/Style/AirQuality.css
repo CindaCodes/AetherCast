@@ -1,0 +1,50 @@
+.aqi-container {
+  text-align: center;
+}
+
+.aqi-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.aqi-value {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.aqi-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.aqi-bar {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    to right,
+    #2ecc71,  /* Good */
+    #f1c40f,  /* Fair */
+    #e67e22,  /* Moderate */
+    #e74c3c,  /* Poor */
+    #8e44ad   /* Very Poor */
+  );
+  margin: 0 auto;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.aqi-indicator {
+  position: absolute;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #222;
+}
+
+.aqi-advice {
+  font-size: 12px
+}
