@@ -36,6 +36,10 @@ body {
 }
 
 /* 🔍 Form */
+form {
+  display: flex;
+  justify-content: flex-end;
+}
 .weather-input {
   border: 1px solid var(--secondary-box-color);
   border-radius: 12px;
@@ -57,7 +61,8 @@ body {
 }
 
 /* 🌿 Button */
-.weather-button, button {
+.weather-button,
+button {
   background-color: var(--secondary-box-color);
   color: var(--bg-color);
   font-weight: 600;
@@ -67,7 +72,8 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-.weather-button:hover, button:hover{
+.weather-button:hover,
+button:hover {
   background-color: var(--accent-box-color);
   color: var(--secondary-box-color);
 }

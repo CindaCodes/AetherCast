@@ -11,7 +11,6 @@ const Pressure = ({ pressure }) => {
   );
   const rotation = normalized * 180 - 90;
 
-
   let icon = "CLOUDY";
   if (pressure > 1020) icon = "CLEAR_DAY";
   else if (pressure < 990) icon = "RAIN";

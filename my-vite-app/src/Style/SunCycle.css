@@ -1,0 +1,29 @@
+
+
+.sun-time {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.sun-arc {
+  margin: 0.8rem 0;
+  position: relative;
+  height: 50px;
+}
+
+.sun-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sun-dot {
+  filter: drop-shadow(0 0 4px #a29bfe);
+  transition: all 0.3s ease;
+}
+
+.sunset-label {
+  font-size: 0.95rem;
+  color: #dcdde1;
+}
