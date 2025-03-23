@@ -7,12 +7,17 @@
 }
 
 .custom-footer a {
-  color: var(--text-color);
+  color: var(--primary-box-color);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 .custom-footer a:hover {
-  color: var(--primary-box-color);
+  color: var(--bg-color);
+  text-shadow:
+    0 0 6px var(--accent-box-color),
+    0 0 12px var(--accent-box-color),
+    0 0 18px var(--accent-box-color);
+
 }
