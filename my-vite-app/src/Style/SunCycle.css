@@ -17,7 +17,7 @@
 }
 
 .sun-dot {
-  filter: drop-shadow(0 0 4px #a29bfe);
+  filter: drop-shadow(0 0 4px #FCE588);
   transition: all 0.3s ease;
 }
 

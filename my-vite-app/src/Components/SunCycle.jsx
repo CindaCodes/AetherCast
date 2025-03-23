@@ -17,6 +17,7 @@ export default function SunCycle({ sunrise, sunset, currentTime }) {
       hour12: true,
       timeZone: "America/Denver",
     });
+    
 
   return (
     <div className="sun-card">
@@ -39,9 +40,9 @@ export default function SunCycle({ sunrise, sunset, currentTime }) {
           />
           <circle
             className="sun-dot"
-            r="2.5"
-            fill="#a29bfe"
-            stroke="#fff"
+            r="6"
+            fill={`rgba(251, 206, 60, ${0.4 + getPercent() / 200})`} // dim when low, brighter mid-day
+            stroke="#FB9910"
             strokeWidth="1"
             cx={(() => {
               const t = getPercent() / 100;
@@ -53,6 +54,10 @@ export default function SunCycle({ sunrise, sunset, currentTime }) {
               const y = (1 - t) ** 2 * 50 + 2 * (1 - t) * t * 0 + t ** 2 * 50;
               return y;
             })()}
+            style={{
+              filter: `drop-shadow(0 0 ${2 + getPercent() / 10}px #FCE588)`,
+              transition: "all 0.3s ease",
+            }}
           />
         </svg>
       </div>
