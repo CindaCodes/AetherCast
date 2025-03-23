@@ -18,7 +18,11 @@ export default function Form({ onSearch }) {
         placeholder="Enter a city..."
         value={cityInput}
         onChange={(e) => setCityInput(e.target.value)}
+<<<<<<< HEAD
         className="weather-input"
+=======
+        class="weather-input"
+>>>>>>> 45348f9718874543c2e97ff8948be1279c326403
       />
       <button type="submit">Search</button>
     </form>
