@@ -6,28 +6,17 @@
   flex: 1;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-<<<<<<< HEAD
   grid-template-rows: 1fr repeat(3, auto);
   gap: 1em;
   grid-template-areas:
     "box-2 box-2 box-1 box-1 box-9 box-9"
     "box-5 box-6 box-1 box-1 box-10 box-7"
     "box-11 box-11 box-3 box-4 box-8 box-8"
-=======
-  grid-template-rows: auto repeat(3, 1fr) auto;
-  gap: 1em;
-  grid-template-areas:
-    "header-1 header-2 header-2 header-3 header-3 header-3"
-    "box-1 box-1 box-2 box-2 box-3 box-4"
-    "box-1 box-1 box-5 box-6 box-9 box-9"
-    "box-11 box-8 box-12 box-12 box-7 box-10"
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
     "footer footer footer footer footer footer";
 
   height: 100%;
 }
 
-<<<<<<< HEAD
 .box,
 .rectangular-box {
  min-height: 100%;
@@ -35,15 +24,6 @@
 
 /* Tablet layout */
 @media (max-width: 1450px) {
-=======
-
-.box, .rectangular-box {
-  min-height: 100%;
-}
-
-/* Responsive improvements */
-@media (max-width: 56em) {
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
   .grid-container {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:

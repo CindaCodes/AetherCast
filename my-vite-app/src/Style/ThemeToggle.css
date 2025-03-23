@@ -38,11 +38,7 @@ body {
 /* 🔍 Form */
 form {
   display: flex;
-<<<<<<< HEAD
   justify-content: center;
-=======
-  justify-content: flex-end;
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
 }
 .weather-input {
   border: 1px solid var(--secondary-box-color);
@@ -78,11 +74,7 @@ button {
 
 .weather-button:hover,
 button:hover {
-<<<<<<< HEAD
   background-color: var(--primary-box-color);
-=======
-  background-color: var(--accent-box-color);
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
   color: var(--secondary-box-color);
 }
 

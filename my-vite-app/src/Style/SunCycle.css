@@ -1,26 +1,14 @@
 
 
 .sun-time {
-<<<<<<< HEAD
   font-size: 18px;
   font-weight: 700;
-=======
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
   margin-bottom: 0.4rem;
 }
 
 .sun-arc {
-<<<<<<< HEAD
   position: relative;
   height: 70px;
-=======
-  margin: 0.8rem 0;
-  position: relative;
-  height: 50px;
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
 }
 
 .sun-svg {
@@ -35,9 +23,5 @@
 
 .sunset-label {
   font-size: 0.95rem;
-<<<<<<< HEAD
   
-=======
-  color: #dcdde1;
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
 }

@@ -1,9 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
 import "../Style/Forecast.css";
-=======
-import "../Style/HourlyForecast.css";
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
 import ReactAnimatedWeather from "react-animated-weather";
 
 export default function HourlyForecast({
@@ -19,7 +15,6 @@ export default function HourlyForecast({
         <div className="hourly-forecast">
           {hourlyForecast.map((hour, index) => (
             <div key={index} className="hour">
-<<<<<<< HEAD
               <p className="hour-time">
                 {new Date(hour.dt * 1000)
                   .toLocaleTimeString("en-US", {
@@ -46,15 +41,6 @@ export default function HourlyForecast({
                 )}
               </p>
 
-=======
-              <p>
-                {new Date(hour.dt * 1000).toLocaleTimeString("en-US", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: !is24Hour,
-                })}
-              </p>
->>>>>>> 45348f9718874543c2e97ff8948be1279c326403
               <ReactAnimatedWeather
                 icon={weatherIcons[hour.weather?.[0]?.main] || "CLOUDY"}
                 color="#757882"
