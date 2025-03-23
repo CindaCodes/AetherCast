@@ -22,7 +22,7 @@ export default function UVIndex({ uv }) {
 
   return (
     <div className="uv-container">
-      <div className="uv-title">☀️ UV Index</div>
+      <div>☀️ UV Index</div>
       <div className="uv-value">{Math.round(uv)}</div>
       <div className="uv-label">{getLabel(uv)}</div>
 
