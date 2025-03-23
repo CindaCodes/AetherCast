@@ -22,7 +22,7 @@
   position: relative;
   width: 90%;
   height: 12px;
-  margin: 0 auto 10px auto;  /* center horizontally and add bottom margin */
+  margin: 0 auto 10px auto; /* center horizontally and add bottom margin */
   border-radius: 6px;
   background: linear-gradient(
     to right,
@@ -37,12 +37,17 @@
 .vis-indicator {
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);  /* center the dot vertically and adjust for width */
+  transform: translate(
+    -50%,
+    -50%
+  );
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: white;
-  border: 2px solid #222;
+  border: 2px solid white;
+  filter: drop-shadow(0 0 4px #a29bfe);
+  transition: all 0.3s ease;
+  background-color: #3f5468;
 }
 
 .vis-advice {

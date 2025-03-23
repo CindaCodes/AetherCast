@@ -18,9 +18,9 @@
   border-radius: 6px;
   background: linear-gradient(
     to right,
-    #b2ebf2,  /* light cyan */
-    #4dd0e1,  /* turquoise */
-    #0097a7   /* teal */
+    #b2ebf2,
+    /* light cyan */ #4dd0e1,
+    /* turquoise */ #0097a7 /* teal */
   );
   margin: 0 auto;
   width: 90%;
@@ -33,6 +33,8 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: white;
-  border: 2px solid #222;
+  border: 2px solid white;
+  filter: drop-shadow(0 0 4px #a29bfe);
+  transition: all 0.3s ease;
+  background-color: #3f5468;
 }

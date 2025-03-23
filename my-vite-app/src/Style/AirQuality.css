@@ -45,8 +45,10 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: white;
-  border: 2px solid #222;
+  background-color: #3f5468;
+  border: 2px solid white;
+  filter: drop-shadow(0 0 4px #a29bfe);
+  transition: all 0.3s ease;
 }
 
 .aqi-advice {
