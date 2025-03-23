@@ -21,7 +21,7 @@ const Pressure = ({ pressure }) => {
 
   return (
     <div className="pressure-container">
-      <div className="pressure-label">Pressure</div>
+      <div className="mb-1">Pressure</div>
       <div className="pressure-gauge">
         <div
           className="pressure-needle"
@@ -36,7 +36,7 @@ const Pressure = ({ pressure }) => {
         <div className="dir s">970</div>
         <div className="dir w">990</div>
       </div>
-      <div className="pressure-value">{pressure} hPa</div>
+      <div >{pressure} hPa</div>
     </div>
   );
 };
