@@ -22,7 +22,7 @@ export default function Form({ onSearch }) {
         onChange={(e) => setCityInput(e.target.value)}
         className="weather-input form-control"
       />
-      <button type="submit" className="btn btn-primary ms-2">
+      <button type="submit" className="weather-button">
         Search
       </button>
     </form>
