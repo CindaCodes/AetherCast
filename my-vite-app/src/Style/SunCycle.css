@@ -1,5 +1,3 @@
-
-
 .sun-time {
   font-size: 18px;
   font-weight: 700;
@@ -9,6 +7,9 @@
 .sun-arc {
   position: relative;
   height: 70px;
+  border: 3px solid #3f4e5a;
+  border-radius: 16px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .sun-svg {
@@ -17,11 +18,10 @@
 }
 
 .sun-dot {
-  filter: drop-shadow(0 0 4px #FCE588);
+  filter: drop-shadow(0 0 4px #fce588);
   transition: all 0.3s ease;
 }
 
 .sunset-label {
   font-size: 0.95rem;
-  
 }
