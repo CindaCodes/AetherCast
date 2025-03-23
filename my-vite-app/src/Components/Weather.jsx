@@ -25,9 +25,13 @@ export default function Weather() {
   const [is24Hour, setIs24Hour] = useState(false);
   const [unit, setUnit] = useState("metric");
   const [weatherData, setWeatherData] = useState(null);
+  const [coords, setCoords] = useState(null);
+  const [usedGeolocation, setUsedGeolocation] = useState(true);
+  const [citySearched, setCitySearched] = useState(false);
+  const hasMounted = useRef(false);
+
   const apiKey = import.meta.env.VITE_API_KEY;
   const sheCodesApiKey = import.meta.env.VITE_SC_API_KEY;
-  const hasMounted = useRef(false);
 
   const weatherIcons = {
     Clear: "CLEAR_DAY",
@@ -39,82 +43,74 @@ export default function Weather() {
     Thunderstorm: "WIND",
   };
 
+  const fetchWeather = async (lat, lon, resolvedCity = null) => {
+    try {
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
+      const response = await axios.get(weatherUrl);
+      setWeatherData(response.data);
+
+      if (!resolvedCity) {
+        setCity(response.data.name);
+      }
+
+      const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+      const airResponse = await axios.get(airQualityUrl);
+      setAirQuality(airResponse.data.list[0]);
+
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
+      const forecastResponse = await axios.get(forecastUrl);
+      setHourlyForecast(forecastResponse.data.list.slice(0, 7));
+
+      const shecodesUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${sheCodesApiKey}&units=${unit}`;
+      const shecodesResponse = await axios.get(shecodesUrl);
+      setDailyForecast(shecodesResponse.data.daily.slice(0, 6));
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchWeather = async (lat, lon, resolvedCity = null) => {
+    const resolveCityToCoords = async () => {
       try {
-        // 🌤️ Current Weather
-        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
-        const response = await axios.get(weatherUrl);
-        setWeatherData(response.data);
-
-        if (resolvedCity) {
-          setCity(resolvedCity);
+        const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+        const geoResponse = await axios.get(geoUrl);
+        if (geoResponse.data.length === 0) {
+          console.error("City not found");
+          return;
         }
-
-        // 🫁 Air Quality
-        const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-        const airResponse = await axios.get(airQualityUrl);
-        setAirQuality(airResponse.data.list[0]);
-
-        // ⏰ Hourly Forecast
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
-        const forecastResponse = await axios.get(forecastUrl);
-        setHourlyForecast(forecastResponse.data.list.slice(0, 7));
-
-        // 📆 6-Day Forecast (SheCodes)
-        const shecodesUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${sheCodesApiKey}&units=${unit}`;
-        const shecodesResponse = await axios.get(shecodesUrl);
-        setDailyForecast(shecodesResponse.data.daily.slice(0, 6));
+        const { lat, lon } = geoResponse.data[0];
+        setCoords({ lat, lon });
+        setUsedGeolocation(false);
       } catch (error) {
-        console.error("Error fetching weather data:", error);
+        console.error("Error resolving city:", error);
       }
     };
 
-    const fetchCoordsAndWeather = async () => {
-      if (!hasMounted.current) {
-        // 🧭 First load — try geolocation
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            fetchWeather(latitude, longitude);
-          },
-          async () => {
-            // Geolocation failed → fallback to city
-            console.log("🔍 Using fallback city:", city);
-            try {
-              const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
-              const geoResponse = await axios.get(geoUrl);
-              if (geoResponse.data.length === 0) {
-                console.error("City not found");
-                return;
-              }
-              const { lat, lon } = geoResponse.data[0];
-              fetchWeather(lat, lon, city);
-            } catch (error) {
-              console.error("Error resolving city:", error);
-            }
-          }
-        );
-        hasMounted.current = true;
-      } else {
-        // 🧠 City changed via search
-        try {
-          const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
-          const geoResponse = await axios.get(geoUrl);
-          if (geoResponse.data.length === 0) {
-            console.error("City not found");
-            return;
-          }
-          const { lat, lon } = geoResponse.data[0];
-          fetchWeather(lat, lon, city);
-        } catch (error) {
-          console.error("Error resolving city:", error);
+    if (!hasMounted.current) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoords({ lat: latitude, lon: longitude });
+          setUsedGeolocation(true);
+          hasMounted.current = true;
+        },
+        () => {
+          resolveCityToCoords();
+          setUsedGeolocation(false);
+          hasMounted.current = true;
         }
-      }
-    };
+      );
+    } else if (citySearched) {
+      resolveCityToCoords();
+      setCitySearched(false);
+    }
+  }, [city]);
 
-    fetchCoordsAndWeather();
-  }, [city, unit, is24Hour]);
+  useEffect(() => {
+    if (coords) {
+      fetchWeather(coords.lat, coords.lon, usedGeolocation ? null : city);
+    }
+  }, [coords, unit, is24Hour]);
 
   if (!weatherData || !weatherData.coord) return <div>Loading...</div>;
 
@@ -145,7 +141,12 @@ export default function Weather() {
           </div>
 
           <div className="mb-3">
-            <Form onSearch={setCity} />
+            <Form
+              onSearch={(newCity) => {
+                setCity(newCity);
+                setCitySearched(true);
+              }}
+            />
           </div>
 
           <ReactAnimatedWeather
@@ -216,7 +217,7 @@ export default function Weather() {
           <RainChart hourlyForecast={hourlyForecast} is24Hour={is24Hour} />
         </div>
 
-        <div className="box" style={{ gridArea: "footer" }}>
+        <div className="rectangular-box" style={{ gridArea: "footer" }}>
           <Footer />
         </div>
       </div>
