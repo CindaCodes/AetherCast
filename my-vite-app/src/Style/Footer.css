@@ -1,0 +1,18 @@
+.custom-footer {
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--bg-color);
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-footer a {
+  color: var(--text-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.custom-footer a:hover {
+  color: var(--primary-box-color);
+}
