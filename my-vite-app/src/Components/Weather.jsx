@@ -1,10 +1,11 @@
 import "../Style/Weather.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AirQuality from "./AirQuality";
 import axios from "axios";
 import Footer from "./Footer";
 import Form from "./Form";
+import HourlyForecast from "./HourlyForecast";
 import Humidity from "./Humidity";
 import Pressure from "./Pressure";
 import RainChart from "./RainChart";
@@ -13,58 +14,54 @@ import SunCycle from "./SunCycle";
 import ThemeToggle from "./ThemeToggle";
 import UVIndex from "./UVIndex";
 import VisibilityGauge from "./Visibility";
-import WindCompass from "./WindCompass";
-import HourlyForecast from "./HourlyForecast";
 import WeeklyForecast from "./WeeklyForecast";
+import WindCompass from "./WindCompass";
 
 export default function Weather() {
-  const [weatherData, setWeatherData] = useState(null);
-  const [is24Hour, setIs24Hour] = useState(false);
   const [airQuality, setAirQuality] = useState(null);
-  const [hourlyForecast, setHourlyForecast] = useState([]);
-  const [unit, setUnit] = useState("metric");
+  const [city, setCity] = useState("Oslo");
   const [dailyForecast, setDailyForecast] = useState([]);
-  const [city, setCity] = useState("Denver");
+  const [hourlyForecast, setHourlyForecast] = useState([]);
+  const [is24Hour, setIs24Hour] = useState(false);
+  const [unit, setUnit] = useState("metric");
+  const [weatherData, setWeatherData] = useState(null);
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const sheCodesApiKey = import.meta.env.VITE_SC_API_KEY;
+  const hasMounted = useRef(false);
 
   const weatherIcons = {
     Clear: "CLEAR_DAY",
     Clouds: "CLOUDY",
+    Drizzle: "SLEET",
+    Mist: "FOG",
     Rain: "RAIN",
     Snow: "SNOW",
     Thunderstorm: "WIND",
-    Drizzle: "SLEET",
-    Mist: "FOG",
-  };
-
-  const options = {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Europe/Oslo",
-    hour12: !is24Hour,
   };
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_API_KEY;
-    const sheCodesApiKey = import.meta.env.VITE_SC_API_KEY;
-
     const fetchWeather = async (lat, lon, resolvedCity = null) => {
       try {
+        // 🌤️ Current Weather
         const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
         const response = await axios.get(weatherUrl);
         setWeatherData(response.data);
 
-        if (!resolvedCity) {
-          setCity(response.data.name);
+        if (resolvedCity) {
+          setCity(resolvedCity);
         }
 
+        // 🫁 Air Quality
         const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
         const airResponse = await axios.get(airQualityUrl);
         setAirQuality(airResponse.data.list[0]);
 
+        // ⏰ Hourly Forecast
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
         const forecastResponse = await axios.get(forecastUrl);
         setHourlyForecast(forecastResponse.data.list.slice(0, 7));
 
+        // 📆 6-Day Forecast (SheCodes)
         const shecodesUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${sheCodesApiKey}&units=${unit}`;
         const shecodesResponse = await axios.get(shecodesUrl);
         setDailyForecast(shecodesResponse.data.daily.slice(0, 6));
@@ -73,28 +70,47 @@ export default function Weather() {
       }
     };
 
-    const fetchCoordsAndWeather = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          fetchWeather(latitude, longitude);
-        },
-        async () => {
-          try {
-            const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
-            const geoResponse = await axios.get(geoUrl);
-            if (geoResponse.data.length === 0) {
-              console.error("City not found");
-              return;
+    const fetchCoordsAndWeather = async () => {
+      if (!hasMounted.current) {
+        // 🧭 First load — try geolocation
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            fetchWeather(latitude, longitude);
+          },
+          async () => {
+            // Geolocation failed → fallback to city
+            console.log("🔍 Using fallback city:", city);
+            try {
+              const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+              const geoResponse = await axios.get(geoUrl);
+              if (geoResponse.data.length === 0) {
+                console.error("City not found");
+                return;
+              }
+              const { lat, lon } = geoResponse.data[0];
+              fetchWeather(lat, lon, city);
+            } catch (error) {
+              console.error("Error resolving city:", error);
             }
-
-            const { lat, lon } = geoResponse.data[0];
-            fetchWeather(lat, lon, city);
-          } catch (error) {
-            console.error("Error resolving city name:", error);
           }
+        );
+        hasMounted.current = true;
+      } else {
+        // 🧠 City changed via search
+        try {
+          const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+          const geoResponse = await axios.get(geoUrl);
+          if (geoResponse.data.length === 0) {
+            console.error("City not found");
+            return;
+          }
+          const { lat, lon } = geoResponse.data[0];
+          fetchWeather(lat, lon, city);
+        } catch (error) {
+          console.error("Error resolving city:", error);
         }
-      );
+      }
     };
 
     fetchCoordsAndWeather();

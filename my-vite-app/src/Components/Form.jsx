@@ -7,20 +7,24 @@ export default function Form({ onSearch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (cityInput.trim() !== "") {
+      console.log("Submitting:", cityInput);
       onSearch(cityInput.trim());
+      setCityInput(""); // clears input
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="d-flex align-items-center">
       <input
         type="text"
         placeholder="Enter a city..."
         value={cityInput}
         onChange={(e) => setCityInput(e.target.value)}
-        className="weather-input"
+        className="weather-input form-control"
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="btn btn-primary ms-2">
+        Search
+      </button>
     </form>
   );
 }
