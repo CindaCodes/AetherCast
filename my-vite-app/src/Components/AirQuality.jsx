@@ -40,7 +40,7 @@ export default function AirQuality({ aqi }) {
 
   return (
     <div className="aqi-container">
-      <div className="aqi-title">🌫️ Air Quality</div>
+      <div className="aqi-title">😶‍🌫️ Air Quality</div>
       <div className="aqi-value">{aqi}</div>
       <div className="aqi-label">{getAQILabel(aqi)}</div>
 
