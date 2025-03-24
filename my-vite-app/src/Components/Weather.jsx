@@ -17,6 +17,7 @@ import VisibilityGauge from "./Visibility";
 import WeeklyForecast from "./WeeklyForecast";
 import WindCompass from "./WindCompass";
 import { Circles } from "react-loader-spinner";
+import MainWeather from "./MainWeather";
 
 export default function Weather() {
   const [airQuality, setAirQuality] = useState(null);
@@ -30,6 +31,7 @@ export default function Weather() {
   const [usedGeolocation, setUsedGeolocation] = useState(true);
   const [citySearched, setCitySearched] = useState(false);
   const hasMounted = useRef(false);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const sheCodesApiKey = import.meta.env.VITE_SC_API_KEY;
@@ -49,6 +51,7 @@ export default function Weather() {
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
       const response = await axios.get(weatherUrl);
       setWeatherData(response.data);
+      setLastUpdated(new Date());
 
       if (!resolvedCity) {
         setCity(response.data.name);
@@ -148,42 +151,17 @@ export default function Weather() {
 
       <div className="grid-container">
         <div className="box" style={{ gridArea: "box-1" }}>
-          <div className="d-flex gap-2 align-items-center justify-content-center flex-wrap">
-            <ThemeToggle />
-            <button
-              onClick={() => setUnit(unit === "metric" ? "imperial" : "metric")}
-            >
-              {unit === "metric" ? "Switch to °F" : "Switch to °C"}
-            </button>
-            <button
-              className="toggle-button"
-              onClick={() => setIs24Hour(!is24Hour)}
-            >
-              {is24Hour ? "12-Hour" : "24-Hour"}
-            </button>
-          </div>
-
-          <div className="mb-3">
-            <Form
-              onSearch={(newCity) => {
-                setCity(newCity);
-                setCitySearched(true);
-              }}
-            />
-          </div>
-
-          <ReactAnimatedWeather
-            icon={weatherIcons[weatherData.weather[0].main] || "CLOUDY"}
-            color="#757882"
-            size={130}
-            animate={true}
+          <MainWeather
+            weatherData={weatherData}
+            unit={unit}
+            is24Hour={is24Hour}
+            setUnit={setUnit}
+            setIs24Hour={setIs24Hour}
+            setCity={setCity}
+            setCitySearched={setCitySearched}
+            weatherIcons={weatherIcons}
+            lastUpdated={lastUpdated}
           />
-          <h6>{weatherData.weather[0].description}</h6>
-          <h4>
-            Temperature:{" "}
-            {weatherData.main.temp ? Math.round(weatherData.main.temp) : "--"}
-            {unit === "metric" ? "°C" : "°F"}
-          </h4>
         </div>
 
         <div className="rectangular-box" style={{ gridArea: "box-2" }}>
