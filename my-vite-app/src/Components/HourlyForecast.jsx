@@ -10,11 +10,22 @@ export default function HourlyForecast({
 }) {
   return (
     <div className="hourly-container">
-      <h6>Hourly Forecast</h6>
+      <h6 className="title">Hourly Forecast</h6>
       {hourlyForecast.length > 0 ? (
         <div className="hourly-forecast">
-          {hourlyForecast.map((hour, index) => (
+          {hourlyForecast.slice(0, 5).map((hour, index) => (
             <div key={index} className="hour">
+              <p>
+                {Math.round(hour.main.temp)}
+                {unit === "metric" ? "°C" : "°F"}
+              </p>
+
+              <ReactAnimatedWeather
+                icon={weatherIcons[hour.weather?.[0]?.main] || "CLOUDY"}
+                color="#757882"
+                size={40}
+                animate={true}
+              />
               <p className="hour-time">
                 {new Date(hour.dt * 1000)
                   .toLocaleTimeString("en-US", {
@@ -39,17 +50,6 @@ export default function HourlyForecast({
                     </span>
                   </>
                 )}
-              </p>
-
-              <ReactAnimatedWeather
-                icon={weatherIcons[hour.weather?.[0]?.main] || "CLOUDY"}
-                color="#757882"
-                size={40}
-                animate={true}
-              />
-              <p>
-                {Math.round(hour.main.temp)}
-                {unit === "metric" ? "°C" : "°F"}
               </p>
             </div>
           ))}

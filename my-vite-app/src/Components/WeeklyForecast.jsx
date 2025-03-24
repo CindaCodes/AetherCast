@@ -1,6 +1,13 @@
 import React from "react";
 import "../Style/Forecast.css";
 import ReactAnimatedWeather from "react-animated-weather";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTemperatureEmpty,
+  faTemperatureThreeQuarters,
+} from "@fortawesome/free-solid-svg-icons";
+
+
 
 const sheCodesToAnimatedWeather = {
   "clear-sky-day": "CLEAR_DAY",
@@ -22,14 +29,13 @@ const sheCodesToAnimatedWeather = {
   "mist-day": "FOG",
   "mist-night": "FOG",
 };
-
 export default function WeeklyForecast({ dailyForecast, unit }) {
   return (
     <div className="hourly-container">
-      <h6>6-Day Forecast</h6>
+      <h6 className="title">5-Day Forecast</h6>
       {dailyForecast.length > 0 ? (
         <div className="hourly-forecast">
-          {dailyForecast.map((day, index) => (
+          {dailyForecast.slice(0, 5).map((day, index) => (
             <div key={index} className="hour">
               <p>
                 {new Date(day.time * 1000).toLocaleDateString("en-US", {
@@ -42,13 +48,20 @@ export default function WeeklyForecast({ dailyForecast, unit }) {
                 size={40}
                 animate={true}
               />
-              <p>
-                {Math.round(day.temperature.day)}
-                {unit === "metric" ? "°C" : "°F"}
-              </p>
-              <p style={{ fontSize: "12px", color: "#aaa" }}>
-                ↓ {Math.round(day.temperature.minimum)}° / ↑{" "}
+              <p style={{ fontSize: "14px" }}>
+                <FontAwesomeIcon
+                  icon={faTemperatureEmpty}
+                  style={{ color: "blue", marginRight: "4px" }}
+                />
+                {Math.round(day.temperature.minimum)}°
+                {unit === "metric" ? "C" : "F"}
+                <br />
+                <FontAwesomeIcon
+                  icon={faTemperatureThreeQuarters}
+                  style={{ color: "red", marginRight: "4px" }}
+                />
                 {Math.round(day.temperature.maximum)}°
+                {unit === "metric" ? "C" : "F"}
               </p>
             </div>
           ))}

@@ -34,8 +34,7 @@ const backgroundGradient = (() => {
 
   return (
     <div className="sun-card">
-      <div className="sun-title">☀️ Sunrise</div>
-      <div className="sun-time">{formatTime(sunrise)}</div>
+      <div className="title mb-2">☀️ Rise: {formatTime(sunrise)}</div>
       <div className="sun-arc" style={{ background: backgroundGradient }}>
         <svg viewBox="0 0 100 50" className="sun-svg">
           <defs>
@@ -54,7 +53,7 @@ const backgroundGradient = (() => {
           <circle
             className="sun-dot"
             r="6"
-            fill={`rgba(251, 206, 60, ${0.4 + getPercent() / 200})`} // dim when low, brighter mid-day
+            fill="#FFCE3C"
             stroke="#FB9910"
             strokeWidth="1"
             cx={(() => {
@@ -74,8 +73,8 @@ const backgroundGradient = (() => {
           />
         </svg>
       </div>
-      <div className="sunset-label">Sunset</div>
-      <div className="sun-time">{formatTime(sunset)}</div>
+      <div className="label mt-2">☀️ Set: {formatTime(sunset)}</div>
+
     </div>
   );
 }

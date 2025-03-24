@@ -29,18 +29,17 @@ const VisibilityGauge = ({ visibility }) => {
 
   return (
     <div className="vis-container">
-      <div className="vis-title">👀 Visibility</div>
-      <div className="vis-value">{displayValue}</div>
-      <div className="vis-label">{category}</div>
+      <div className="title">👀 Visibility</div>
+      <div className="value">{displayValue}</div>
+      <div className="label">{category}</div>
       <div className="vis-bar">
-        {/* Indicator dot positioned based on visibility percentage */}
         <div
-          className="vis-indicator"
+          className="indicator"
           style={{ left: `${percent}%` }}
           aria-label={`Visibility indicator: ${category}`}
         />
       </div>
-      <div className="vis-advice">{advice}</div>
+      <div className="advice">{advice}</div>
     </div>
   );
 };

@@ -22,15 +22,15 @@ export default function UVIndex({ uv }) {
 
   return (
     <div className="uv-container">
-      <div>☀️ UV Index</div>
-      <div className="uv-value">{Math.round(uv)}</div>
-      <div className="uv-label">{getLabel(uv)}</div>
+      <div className="title">☀️ UV Index</div>
+      <div className="value">{Math.round(uv)}</div>
+      <div className="label">{getLabel(uv)}</div>
 
       <div className="uv-bar">
-        <div className="uv-indicator" style={{ left: `${percent}%` }}></div>
+        <div className="indicator" style={{ left: `${percent}%` }}></div>
       </div>
 
-      <div className="uv-advice">{getAdvice(uv)}</div>
+      <div className="advice">{getAdvice(uv)}</div>
     </div>
   );
 }
