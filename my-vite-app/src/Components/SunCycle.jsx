@@ -17,20 +17,25 @@ export default function SunCycle({ sunrise, sunset, currentTime }) {
       hour12: true,
       timeZone: "America/Denver",
     });
-const sunPercent = getPercent();
-const backgroundGradient = (() => {
-  if (sunPercent < 33) {
-    // 🌒 Early Morning — cooler/darker tones
-    return `linear-gradient(to top, #102542, #32597b)`; // navy to soft blue
-  } else if (sunPercent < 66) {
-    // ☀️ Midday — bright and warm
-    return `linear-gradient(to top, #dbefff, #a2d4f7)`; // sky blue and light
-  } else {
-    // 🌘 Late Evening — cooler again, slightly darker
-    return `linear-gradient(to top, #1e3c72, #2a5298)`; // dusk blue tones
-  }
-})();
-
+  const sunPercent = getPercent();
+  const backgroundGradient = (() => {
+    if (sunPercent === 0) {
+      // 🌑 Night — pitch dark
+      return `linear-gradient(to top, #0a0f1c, #1b2233)`;
+    } else if (sunPercent < 33) {
+      // 🌒 Early Morning
+      return `linear-gradient(to top, #3b4c66, #5c7f9d)`;
+    } else if (sunPercent < 66) {
+      // ☀️ Midday
+      return `linear-gradient(to top, #dbefff, #a2d4f7)`;
+    } else if (sunPercent < 100) {
+      // 🌇 Late Afternoon / Dusk
+      return `linear-gradient(to top, #4a68a1, #5e7fc0)`;
+    } else {
+      // 🌘 Post-sunset — almost night
+      return `linear-gradient(to top, #1a1f2e, #2c3750)`;
+    }
+  })();
 
   return (
     <div className="sun-card">
@@ -74,7 +79,6 @@ const backgroundGradient = (() => {
         </svg>
       </div>
       <div className="label mt-2">☀️ Set: {formatTime(sunset)}</div>
-
     </div>
   );
 }
