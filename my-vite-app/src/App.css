@@ -15,12 +15,36 @@ body {
 }
 
 .App {
-    margin: 30px;
+    margin: 1em;
 }
 
+.title {
+  font-size: 20px;
+  align-items: center;
 
-@media (max-width: 768px) {
-  .App {
-    margin: 5px;
-  }
+}
+
+.indicator {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background-color: #3f5468;
+border: 2px solid white;
+filter: drop-shadow(0 0 4px #a29bfe);
+transition: all 0.3s ease;
+
+}
+
+.value {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 18px;
+
 }

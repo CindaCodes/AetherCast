@@ -2,21 +2,6 @@
   text-align: center;
 }
 
-.vis-title {
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-.vis-value {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.vis-label {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
 
 .vis-bar {
   position: relative;
@@ -32,22 +17,6 @@
     #e74c3c,
     #8e44ad
   );
-}
-
-.vis-indicator {
-  position: absolute;
-  top: 50%;
-  transform: translate(
-    -50%,
-    -50%
-  );
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid white;
-  filter: drop-shadow(0 0 4px #a29bfe);
-  transition: all 0.3s ease;
-  background-color: #3f5468;
 }
 
 .vis-advice {

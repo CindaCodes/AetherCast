@@ -2,16 +2,6 @@
   text-align: center;
 }
 
-.uv-value {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.uv-label {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
 .uv-bar {
   position: relative;
   height: 12px;
@@ -27,18 +17,6 @@
   margin: 0 auto;
   width: 90%;
   margin-bottom: 10px;
-}
-
-.uv-indicator {
-  position: absolute;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #3f5468;
-  border: 2px solid white;
-  filter: drop-shadow(0 0 4px #a29bfe);
-  transition: all 0.3s ease;
 }
 
 .uv-advice {
