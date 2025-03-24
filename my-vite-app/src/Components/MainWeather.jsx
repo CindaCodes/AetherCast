@@ -2,6 +2,11 @@ import React from "react";
 import ThemeToggle from "./ThemeToggle";
 import Form from "./Form";
 import ReactAnimatedWeather from "react-animated-weather";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTemperatureEmpty,
+  faTemperatureThreeQuarters,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function MainWeatherBox({
   weatherData,
@@ -16,7 +21,7 @@ export default function MainWeatherBox({
 }) {
   return (
     <>
-      <div className="d-flex gap-2 align-items-center justify-content-center flex-wrap">
+      <div className="d-flex gap-2 align-items-center justify-content-center flex-wrap mb-2">
         <ThemeToggle />
         <button
           onClick={() => setUnit(unit === "metric" ? "imperial" : "metric")}
@@ -31,7 +36,7 @@ export default function MainWeatherBox({
         </button>
       </div>
 
-      <div className="mb-3">
+      <div className="mb-2">
         <Form
           onSearch={(newCity) => {
             setCity(newCity);
@@ -40,20 +45,47 @@ export default function MainWeatherBox({
         />
       </div>
 
-      <ReactAnimatedWeather
-        icon={weatherIcons[weatherData.weather[0].main] || "CLOUDY"}
-        color="#757882"
-        size={130}
-        animate={true}
-      />
-      <h6>{weatherData.weather[0].description}</h6>
-      <h4>
-        Temperature:{" "}
-        {weatherData.main.temp ? Math.round(weatherData.main.temp) : "--"}
-        {unit === "metric" ? "°C" : "°F"}
-      </h4>
+      <div className="d-flex justify-content-evenly">
+        <div className="d-flex justify-content-center align-items-center flex-column">
+          <ReactAnimatedWeather
+            icon={weatherIcons[weatherData.weather[0].main] || "CLOUDY"}
+            color="#757882"
+            size={120}
+            animate={true}
+          />
+          <h6 className="label text-start">
+            {weatherData.weather[0].description}
+          </h6>
+        </div>
+        <div>
+          <div class="display-3 text-start">
+            {Math.round(weatherData.main.temp)}
+            {unit === "metric" ? "°C" : "°F"}
+          </div>
+          <p class="label text-start">
+            Feels like: {Math.round(weatherData.main.feels_like)}
+            {unit === "metric" ? "°C" : "°F"}
+          </p>
+          <div class="label text-start d-flex justify-content-between">
+            <div>
+              <FontAwesomeIcon
+                icon={faTemperatureThreeQuarters}
+                style={{ color: "red", marginRight: "4px" }}
+              />
+              {Math.round(weatherData.main.temp_max)}°
+            </div>
+            <div>
+              <FontAwesomeIcon
+                icon={faTemperatureEmpty}
+                style={{ color: "blue", marginRight: "4px" }}
+              />
+              {Math.round(weatherData.main.temp_min)}°
+            </div>
+          </div>
+        </div>
+      </div>
       {lastUpdated && (
-        <div className="advice">
+        <div className="label mt-3">
           Updated:{" "}
           {lastUpdated.toLocaleString("en-US", {
             weekday: "short",
