@@ -15,7 +15,7 @@ const Pressure = ({ pressure }) => {
 
   const pressureLabels = [970, 980, 990, 1000, 1010, 1020, 1030, 1040];
 
-  let icon = "CLOUDY";
+  let icon = "PARTLY_CLOUDY_DAY";
   if (pressure > 1020) icon = "CLEAR_DAY";
   else if (pressure < 990) icon = "RAIN";
 
@@ -54,7 +54,7 @@ const Pressure = ({ pressure }) => {
 
         <div className="center-dot" />
         <div className="pressure-icon-center">
-          <ReactAnimatedWeather icon={icon} color="#fff" size={36} animate />
+          <ReactAnimatedWeather icon={icon} color="#ccc" size={60} animate />
         </div>
       </div>
       <div className="label">{pressure} hPa</div>
