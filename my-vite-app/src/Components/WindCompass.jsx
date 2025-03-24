@@ -6,7 +6,7 @@ export default function WindCompass({ windSpeed, windDeg, unit }) {
 
   return (
     <div className="wind-wrapper">
-      <div className="mb-1">💨 Wind</div>
+      <div className="title">💨 Wind</div>
       <div className="compass-container">
         <div className="compass">
           <div
@@ -20,7 +20,7 @@ export default function WindCompass({ windSpeed, windDeg, unit }) {
           <div className="dir w">W</div>
         </div>
         <div>
-          <span className="wind-speed">
+          <span className="label">
             {Math.round(windSpeed)} {windUnit}
           </span>
         </div>
