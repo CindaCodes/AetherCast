@@ -5,38 +5,59 @@ import "../Style/Pressure.css";
 const Pressure = ({ pressure }) => {
   const minPressure = 970;
   const maxPressure = 1040;
+
   const normalized = Math.min(
     Math.max((pressure - minPressure) / (maxPressure - minPressure), 0),
     1
   );
-  const rotation = normalized * 180 - 90;
+
+  const rotation = 150 + normalized * 360;
+
+  const pressureLabels = [970, 980, 990, 1000, 1010, 1020, 1030, 1040];
 
   let icon = "CLOUDY";
   if (pressure > 1020) icon = "CLEAR_DAY";
   else if (pressure < 990) icon = "RAIN";
 
-  let label = "Cloudy";
-  if (pressure > 1020) label = "Sunny";
-  else if (pressure < 990) label = "Rainy";
-
   return (
     <div className="pressure-container">
-      <div className="mb-1">Pressure</div>
-      <div className="pressure-gauge">
+      <div className="title">🕰️ Barometer</div>
+      <div className="pressure-gauge-full">
         <div
           className="pressure-needle"
           style={{ transform: `rotate(${rotation}deg)` }}
         />
+
+        {/* Labels spaced clockwise with 970 at bottom */}
+        {pressureLabels.map((value, index) => {
+          const angle = 90 + (index / pressureLabels.length) * 360;
+          const radius = 60;
+          const center = 77;
+
+          const x = center + radius * Math.cos((angle * Math.PI) / 180);
+          const y = center + radius * Math.sin((angle * Math.PI) / 180);
+
+          return (
+            <div
+              key={value}
+              className="pressure-label"
+              style={{
+                left: `${x}px`,
+                top: `${y}px`,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              {value}
+            </div>
+          );
+        })}
+
+        <div className="center-dot" />
         <div className="pressure-icon-center">
           <ReactAnimatedWeather icon={icon} color="#fff" size={36} animate />
         </div>
-        <div className="center-dot"></div>
-        <div className="dir n">1010</div>
-        <div className="dir e">1300</div>
-        <div className="dir s">970</div>
-        <div className="dir w">990</div>
       </div>
-      <div >{pressure} hPa</div>
+      <div className="label">{pressure} hPa</div>
     </div>
   );
 };
