@@ -16,6 +16,7 @@ import UVIndex from "./UVIndex";
 import VisibilityGauge from "./Visibility";
 import WeeklyForecast from "./WeeklyForecast";
 import WindCompass from "./WindCompass";
+import { Circles } from "react-loader-spinner";
 
 export default function Weather() {
   const [airQuality, setAirQuality] = useState(null);
@@ -112,7 +113,29 @@ export default function Weather() {
     }
   }, [coords, unit, is24Hour]);
 
-  if (!weatherData || !weatherData.coord) return <div>Loading...</div>;
+  if (!weatherData || !weatherData.coord) {
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Circles
+          height="100"
+          width="100"
+          color="#3f5468"
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="Weather">
@@ -213,7 +236,7 @@ export default function Weather() {
         </div>
 
         <div className="rectangular-box" style={{ gridArea: "box-11" }}>
-          <h6>Chance of Rain</h6>
+          <h6 className="title">☔️ Chance of Rain</h6>
           <RainChart hourlyForecast={hourlyForecast} is24Hour={is24Hour} />
         </div>
 
