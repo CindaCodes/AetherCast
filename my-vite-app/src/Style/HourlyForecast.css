@@ -1,8 +1,11 @@
+.hourly-container {
+  max-height: fit-content;
+}
+
 .hourly-forecast {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
 }
 
 .hour {
@@ -10,9 +13,4 @@
   flex-direction: column;
   align-items: center;
   font-size: 14px;
-  min-width: 60px;
-}
-
-.hour p {
-  margin: 5px 0;
 }
