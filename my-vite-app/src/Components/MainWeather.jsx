@@ -21,19 +21,23 @@ export default function MainWeatherBox({
 }) {
   return (
     <>
-      <div className="d-flex gap-2 align-items-center justify-content-center flex-wrap mb-2">
-        <ThemeToggle />
-        <button
-          onClick={() => setUnit(unit === "metric" ? "imperial" : "metric")}
-        >
-          {unit === "metric" ? "Switch to °F" : "Switch to °C"}
-        </button>
-        <button
-          className="toggle-button"
-          onClick={() => setIs24Hour(!is24Hour)}
-        >
-          {is24Hour ? "12-Hour" : "24-Hour"}
-        </button>
+      <div className="d-flex flex-wrap justify-content-between align-items-center text-center gap-2 mb-2">
+        <div>
+          <ThemeToggle />
+        </div>
+        <div className="d-flex gap-2">
+          <button
+            onClick={() => setUnit(unit === "metric" ? "imperial" : "metric")}
+          >
+            {unit === "metric" ? "Switch to °F" : "Switch to °C"}
+          </button>
+          <button
+            className="toggle-button"
+            onClick={() => setIs24Hour(!is24Hour)}
+          >
+            {is24Hour ? "12-Hour" : "24-Hour"}
+          </button>
+        </div>
       </div>
 
       <div className="mb-2">
@@ -84,9 +88,10 @@ export default function MainWeatherBox({
           </div>
         </div>
       </div>
-      {lastUpdated && (
-        <div className="label mt-3">
-          Updated:{" "}
+
+      <div className="label mt-5 d-flex flex-wrap justify-content-center text-center">
+        <div className="me-2">Updated:</div>
+        <div>
           {lastUpdated.toLocaleString("en-US", {
             weekday: "short",
             year: "numeric",
@@ -97,7 +102,7 @@ export default function MainWeatherBox({
             hour12: !is24Hour,
           })}
         </div>
-      )}
+      </div>
     </>
   );
 }
