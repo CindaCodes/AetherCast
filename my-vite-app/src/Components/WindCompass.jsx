@@ -5,7 +5,7 @@ export default function WindCompass({ windSpeed, windDeg, unit }) {
   const windUnit = unit === "metric" ? "m/s" : "mph";
 
   return (
-    <div className="wind-wrapper">
+    <div className="dial-container">
       <div className="title">💨 Wind</div>
       <div className="compass-container">
         <div className="compass">
