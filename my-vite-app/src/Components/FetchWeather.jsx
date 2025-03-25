@@ -37,9 +37,7 @@ export function useWeather(
       setWeatherData(result.weather);
       setLastUpdated(new Date());
 
-      if (!resolvedCity) {
-        // Optionally: setCity(result.weather.name);
-      }
+      if (!resolvedCity) {}
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }
