@@ -18,7 +18,9 @@ export default function MainWeatherBox({
   setCitySearched,
   weatherIcons,
   lastUpdated,
+  dailyForecast,
 }) {
+  const todayForecast = dailyForecast?.[0];
   return (
     <>
       <div className="d-flex flex-wrap justify-content-between align-items-center text-center gap-2 mb-2">
@@ -76,14 +78,16 @@ export default function MainWeatherBox({
                 icon={faTemperatureThreeQuarters}
                 style={{ color: "red", marginRight: "4px" }}
               />
-              {Math.round(weatherData.main.temp_max)}°
+              {Math.round(todayForecast?.temperature.maximum)}
+              {unit === "metric" ? "°C" : "°F"}
             </div>
             <div>
               <FontAwesomeIcon
                 icon={faTemperatureEmpty}
                 style={{ color: "blue", marginRight: "4px" }}
               />
-              {Math.round(weatherData.main.temp_min)}°
+              {Math.round(todayForecast?.temperature.minimum)}
+              {unit === "metric" ? "°C" : "°F"}
             </div>
           </div>
         </div>

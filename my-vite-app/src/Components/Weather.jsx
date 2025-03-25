@@ -161,6 +161,7 @@ export default function Weather() {
             setCitySearched={setCitySearched}
             weatherIcons={weatherIcons}
             lastUpdated={lastUpdated}
+            dailyForecast={dailyForecast} 
           />
         </div>
 
