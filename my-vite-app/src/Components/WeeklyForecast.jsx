@@ -35,7 +35,7 @@ export default function WeeklyForecast({ dailyForecast, unit }) {
       <h6 className="title">5-Day Forecast</h6>
       {dailyForecast.length > 0 ? (
         <div className="hourly-forecast">
-          {dailyForecast.slice(0, 5).map((day, index) => (
+          {dailyForecast.slice(1, 6).map((day, index) => (
             <div key={index} className="hour">
               <p>
                 {new Date(day.time * 1000).toLocaleDateString("en-US", {
