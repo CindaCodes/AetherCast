@@ -153,12 +153,10 @@ button:hover {
 
 /* Sun on the left */
 .sun {
-  color: white;
   left: 3px;
 }
 
 /* Moon on the right */
 .moon {
-  color: yellow;
   right: 3px;
 }
