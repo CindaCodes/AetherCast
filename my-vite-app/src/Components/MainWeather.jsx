@@ -64,15 +64,15 @@ export default function MainWeatherBox({
           </h6>
         </div>
         <div>
-          <div class="display-3 text-start">
+          <div className="display-3 text-start">
             {Math.round(weatherData.main.temp)}
             {unit === "metric" ? "°C" : "°F"}
           </div>
-          <p class="label text-start">
+          <p className="label text-start">
             Feels like: {Math.round(weatherData.main.feels_like)}
             {unit === "metric" ? "°C" : "°F"}
           </p>
-          <div class="label text-start d-flex justify-content-between">
+          <div className="label text-start d-flex justify-content-between">
             <div>
               <FontAwesomeIcon
                 icon={faTemperatureThreeQuarters}
