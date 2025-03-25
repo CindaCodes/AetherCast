@@ -20,11 +20,11 @@ const Pressure = ({ pressure }) => {
   else if (pressure < 990) icon = "RAIN";
 
   return (
-    <div className="pressure-container">
+    <div className="dial-container">
       <div className="title">🕰️ Barometer</div>
       <div className="pressure-gauge-full">
         <div
-          className="pressure-needle"
+          className="needle"
           style={{ transform: `rotate(${rotation}deg)` }}
         />
 
