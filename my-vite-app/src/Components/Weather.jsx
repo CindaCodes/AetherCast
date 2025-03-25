@@ -152,7 +152,7 @@ export default function Weather() {
       <div className="grid-container">
         <div className="box" style={{ gridArea: "box-1" }}>
           <MainWeather
-            dailyForecast={dailyForecast} 
+            dailyForecast={dailyForecast}
             is24Hour={is24Hour}
             lastUpdated={lastUpdated}
             setCity={setCity}
@@ -191,9 +191,10 @@ export default function Weather() {
 
         <div className="box" style={{ gridArea: "box-7" }}>
           <SunCycle
-            currentTime={Date.now()}
             sunrise={weatherData.sys.sunrise}
             sunset={weatherData.sys.sunset}
+            currentTime={Date.now()}
+            is24Hour={is24Hour}
           />
         </div>
 

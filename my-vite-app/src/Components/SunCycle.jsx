@@ -1,7 +1,7 @@
 import React from "react";
 import "../Style/SunCycle.css";
 
-export default function SunCycle({ sunrise, sunset, currentTime }) {
+export default function SunCycle({ sunrise, sunset, currentTime, is24Hour }) {
   const getPercent = () => {
     const now = new Date(currentTime).getTime();
     const start = new Date(sunrise * 1000).getTime();
@@ -14,9 +14,10 @@ export default function SunCycle({ sunrise, sunset, currentTime }) {
     new Date(timestamp * 1000).toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "2-digit",
-      hour12: true,
+      hour12: !is24Hour,
       timeZone: "America/Denver",
     });
+
   const sunPercent = getPercent();
   const backgroundGradient = (() => {
     if (sunPercent === 0) {
