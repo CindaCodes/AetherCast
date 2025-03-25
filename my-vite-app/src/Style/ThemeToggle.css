@@ -21,19 +21,19 @@
   --toggle-fg-dark: white;
 
   /* 🏡 Dark Theme Variables */
-  --bg-color: #42291c; /* Deep brown */
-  --text-color: #b8e4c9; /* Muted pastel green */
-  --primary-box-color: #3f5468; /* Slate blue */
-  --secondary-box-color: #b8e4c9; /* Light green */
-  --accent-box-color: #e9fadd; /* Softest green */
+  --bg-color: #42291c;
+  --text-color: #b8e4c9; 
+  --primary-box-color: #3f5468; 
+  --secondary-box-color: #b8e4c9; 
+  --accent-box-color: #e9fadd; 
 }
 
 /* 📌 Apply the background & text color */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: all 0.3s ease-in-out;
   font-family: "Space Grotesk", sans-serif;
+  transition: all 0.3s ease-in-out;
 }
 
 /* 🔍 Form */
@@ -42,13 +42,13 @@ form {
   justify-content: center;
 }
 .weather-input {
-  border: 1px solid var(--secondary-box-color);
-  border-radius: 12px;
-  padding: 10px 16px;
-  min-width: 60%;
   background-color: #fff;
-  transition: all 0.2s ease-in-out;
+  border-radius: 12px;
+  border: 1px solid var(--secondary-box-color);
   margin: 1rem;
+  min-width: 60%;
+  padding: 10px 16px;
+  transition: all 0.2s ease-in-out;
 }
 
 .weather-input::placeholder {
@@ -56,21 +56,21 @@ form {
 }
 
 .weather-input:focus {
-  outline: none;
   border-color: var(--primary-box-color);
   box-shadow: 0 0 0 3px var(--primary-box-color);
+  outline: none;
 }
 
 /* 🌿 Button */
 .weather-button,
 button {
   background-color: var(--secondary-box-color);
+  border-radius: 12px;
   color: var(--bg-color);
   font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 12px;
-  transition: background-color 0.2s ease-in-out;
   margin: 1rem;
+  padding: 10px 20px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .weather-button:hover,
@@ -83,11 +83,11 @@ button:hover {
 .rectangular-box,
 .box {
   background: var(--primary-box-color);
-  padding: 20px;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
   font-weight: bold;
+  padding: 20px;
+  text-align: center;
 }
 
 /* 🌟 Secondary boxes */
@@ -109,33 +109,33 @@ button:hover {
 /* 🎛️ Toggle Styling */
 .toggle-label {
   align-items: center;
-  width: 55px;
-  height: 30px;
   background-color: var(--toggle-bg-light);
   border-radius: 25px;
-  position: relative;
   cursor: pointer;
+  height: 30px;
+  position: relative;
   transition: background-color 250ms ease-in-out;
+  width: 55px;
 }
 
 /* 🌙 Toggle Circle */
 .toggle-label::after {
+  background-color: var(--toggle-fg-light);
+  border-radius: 50%;
   content: "";
   height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background-color: var(--toggle-fg-light);
-  position: absolute;
   left: 3px;
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   transition: transform 250ms ease-in-out, background-color 250ms ease-in-out;
+  width: 20px;
 }
 
 /* 🟡 Move toggle circle on click */
 .toggle:checked + .toggle-label::after {
-  transform: translate(28px, -50%);
   background-color: var(--toggle-fg-dark);
+  transform: translate(28px, -50%);
 }
 
 /* 🌗 Toggle background changes */
@@ -145,20 +145,20 @@ button:hover {
 
 /* ☀️ Moon & Sun Icons */
 .toggle-icon {
+  font-size: 20px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20px;
 }
 
 /* Sun on the left */
 .sun {
-  left: 5px;
   color: white;
+  left: 5px;
 }
 
 /* Moon on the right */
 .moon {
-  right: 5px;
   color: yellow;
+  right: 5px;
 }

@@ -9,16 +9,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainWeatherBox({
-  weatherData,
-  unit,
+  dailyForecast,
   is24Hour,
-  setUnit,
-  setIs24Hour,
+  lastUpdated,
   setCity,
   setCitySearched,
+  setIs24Hour,
+  setUnit,
+  unit,
+  weatherData,
   weatherIcons,
-  lastUpdated,
-  dailyForecast,
 }) {
   const todayForecast = dailyForecast?.[0];
   return (

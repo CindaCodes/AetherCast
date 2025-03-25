@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const fetchAllWeather = async ({
+  apiKey,
   lat,
   lon,
-  unit,
-  apiKey,
   sheCodesApiKey,
+  unit,
 }) => {
   try {
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
@@ -21,10 +21,10 @@ const fetchAllWeather = async ({
     const shecodesResponse = await axios.get(shecodesUrl);
 
     return {
-      weather: weatherResponse.data,
       airQuality: airResponse.data.list[0],
-      hourlyForecast: forecastResponse.data.list.slice(0, 7),
       dailyForecast: shecodesResponse.data.daily.slice(0, 6),
+      hourlyForecast: forecastResponse.data.list.slice(0, 7),
+      weather: weatherResponse.data,
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);

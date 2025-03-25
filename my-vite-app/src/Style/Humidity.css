@@ -3,16 +3,16 @@
 }
 
 .humidity-bar {
-  position: relative;
-  height: 12px;
-  border-radius: 6px;
   background: linear-gradient(
     to right,
     #b2ebf2,
     /* light cyan */ #4dd0e1,
     /* turquoise */ #0097a7 /* teal */
   );
-  margin: 0 auto;
-  width: 90%;
+  border-radius: 6px;
+  height: 12px;
   margin-bottom: 10px;
+  margin: 0 auto;
+  position: relative;
+  width: 90%;
 }

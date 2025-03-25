@@ -2,13 +2,7 @@
   text-align: center;
 }
 
-
 .vis-bar {
-  position: relative;
-  width: 90%;
-  height: 12px;
-  margin: 0 auto 10px auto; /* center horizontally and add bottom margin */
-  border-radius: 6px;
   background: linear-gradient(
     to right,
     #2ecc71,
@@ -17,6 +11,11 @@
     #e74c3c,
     #8e44ad
   );
+  border-radius: 6px;
+  height: 12px;
+  margin: 0 auto 10px auto; /* center horizontally and add bottom margin */
+  position: relative;
+  width: 90%;
 }
 
 .vis-advice {

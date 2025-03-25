@@ -1,19 +1,19 @@
 import React from "react";
-import "../Style/Visibility.css"; /* Assuming you put the CSS in this file */
+import "../Style/Visibility.css"; 
 
 const VisibilityGauge = ({ visibility }) => {
-  // Ensure visibility is within 0 – 10000 m (OpenWeather's max is 10 km)
+  
   const visMeters = Math.max(0, Math.min(visibility, 10000));
   const percent = (visMeters / 10000) * 100;
 
-  // Format the visibility value for display (m or km)
+  
   const visibilityKm = (visMeters / 1000).toFixed(1);
   const displayValue =
     visMeters >= 1000
-      ? `${visibilityKm} km` // e.g., "7.5 km"
-      : `${visMeters} m`; // e.g., "800 m"
+      ? `${visibilityKm} km`
+      : `${visMeters} m`; 
 
-  // Determine visibility category and advice message
+  
   let category = "";
   let advice = "";
   if (visMeters < 4000) {

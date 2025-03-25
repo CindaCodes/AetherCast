@@ -1,12 +1,12 @@
 import {
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  LabelList,
 } from "recharts";
 
 const getBarColor = (value) => {

@@ -1,13 +1,10 @@
 .aqi-container {
-  text-align: center;
   height: auto;
   overflow: visible;
+  text-align: center;
 }
 
 .aqi-bar {
-  position: relative;
-  height: 12px;
-  border-radius: 6px;
   background: linear-gradient(
     to right,
     #2ecc71,
@@ -16,12 +13,13 @@
     /* Moderate */ #e74c3c,
     /* Poor */ #8e44ad /* Very Poor */
   );
-  margin: 0 auto;
-  width: 90%;
+  border-radius: 6px;
+  height: 12px;
   margin-bottom: 10px;
+  margin: 0 auto;
+  position: relative;
+  width: 90%;
 }
-
-
 
 .aqi-advice {
   font-size: 12px;

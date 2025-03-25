@@ -3,9 +3,7 @@
 }
 
 .uv-bar {
-  position: relative;
-  height: 12px;
-  border-radius: 6px;
+
   background: linear-gradient(
     to right,
     #2ecc71,
@@ -14,9 +12,12 @@
     #e74c3c,
     #8e44ad
   );
-  margin: 0 auto;
-  width: 90%;
+  border-radius: 6px;
+  height: 12px;
   margin-bottom: 10px;
+  margin: 0 auto;
+  position: relative;
+  width: 90%;
 }
 
 .uv-advice {

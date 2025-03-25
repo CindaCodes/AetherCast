@@ -1,8 +1,8 @@
 .custom-footer {
+  border-radius: 12px;
+  color: var(--bg-color);
   font-size: 0.95rem;
   text-align: center;
-  color: var(--bg-color);
-  border-radius: 12px;
   transition: all 0.3s ease-in-out;
 }
 

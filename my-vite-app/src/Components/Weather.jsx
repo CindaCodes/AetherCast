@@ -1,12 +1,15 @@
 import "../Style/Weather.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState, useRef } from "react";
+import { Circles } from "react-loader-spinner";
 import AirQuality from "./AirQuality";
 import axios from "axios";
+import fetchAllWeather from "./FetchWeather";
 import Footer from "./Footer";
 import Form from "./Form";
 import HourlyForecast from "./HourlyForecast";
 import Humidity from "./Humidity";
+import MainWeather from "./MainWeather";
 import Pressure from "./Pressure";
 import RainChart from "./RainChart";
 import ReactAnimatedWeather from "react-animated-weather";
@@ -16,23 +19,20 @@ import UVIndex from "./UVIndex";
 import VisibilityGauge from "./Visibility";
 import WeeklyForecast from "./WeeklyForecast";
 import WindCompass from "./WindCompass";
-import { Circles } from "react-loader-spinner";
-import MainWeather from "./MainWeather";
-import fetchAllWeather from "./FetchWeather";
 
 export default function Weather() {
   const [airQuality, setAirQuality] = useState(null);
   const [city, setCity] = useState("Oslo");
+  const [citySearched, setCitySearched] = useState(false);
+  const [coords, setCoords] = useState(null);
   const [dailyForecast, setDailyForecast] = useState([]);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [is24Hour, setIs24Hour] = useState(false);
-  const [unit, setUnit] = useState("metric");
-  const [weatherData, setWeatherData] = useState(null);
-  const [coords, setCoords] = useState(null);
-  const [usedGeolocation, setUsedGeolocation] = useState(true);
-  const [citySearched, setCitySearched] = useState(false);
-  const hasMounted = useRef(false);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [unit, setUnit] = useState("metric");
+  const [usedGeolocation, setUsedGeolocation] = useState(true);
+  const [weatherData, setWeatherData] = useState(null);
+  const hasMounted = useRef(false);
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const sheCodesApiKey = import.meta.env.VITE_SC_API_KEY;
@@ -50,18 +50,18 @@ export default function Weather() {
   const fetchWeather = async (lat, lon, resolvedCity = null) => {
     try {
       const result = await fetchAllWeather({
+        apiKey,
+        city,
         lat,
         lon,
-        city,
-        unit,
-        apiKey,
         sheCodesApiKey,
+        unit,
       });
 
-      setWeatherData(result.weather);
       setAirQuality(result.airQuality);
-      setHourlyForecast(result.hourlyForecast);
       setDailyForecast(result.dailyForecast);
+      setHourlyForecast(result.hourlyForecast);
+      setWeatherData(result.weather);
       setLastUpdated(new Date());
 
       if (!resolvedCity) {
@@ -152,16 +152,16 @@ export default function Weather() {
       <div className="grid-container">
         <div className="box" style={{ gridArea: "box-1" }}>
           <MainWeather
-            weatherData={weatherData}
-            unit={unit}
+            dailyForecast={dailyForecast} 
             is24Hour={is24Hour}
-            setUnit={setUnit}
-            setIs24Hour={setIs24Hour}
+            lastUpdated={lastUpdated}
             setCity={setCity}
             setCitySearched={setCitySearched}
+            setIs24Hour={setIs24Hour}
+            setUnit={setUnit}
+            unit={unit}
+            weatherData={weatherData}
             weatherIcons={weatherIcons}
-            lastUpdated={lastUpdated}
-            dailyForecast={dailyForecast} 
           />
         </div>
 
@@ -175,9 +175,9 @@ export default function Weather() {
 
         <div className="box" style={{ gridArea: "box-4" }}>
           <WindCompass
-            windSpeed={weatherData.wind.speed}
-            windDeg={weatherData.wind.deg}
             unit={unit}
+            windDeg={weatherData.wind.deg}
+            windSpeed={weatherData.wind.speed}
           />
         </div>
 
@@ -191,9 +191,9 @@ export default function Weather() {
 
         <div className="box" style={{ gridArea: "box-7" }}>
           <SunCycle
+            currentTime={Date.now()}
             sunrise={weatherData.sys.sunrise}
             sunset={weatherData.sys.sunset}
-            currentTime={Date.now()}
           />
         </div>
 
