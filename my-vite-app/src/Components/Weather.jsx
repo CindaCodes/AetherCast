@@ -18,6 +18,7 @@ import WeeklyForecast from "./WeeklyForecast";
 import WindCompass from "./WindCompass";
 import { Circles } from "react-loader-spinner";
 import MainWeather from "./MainWeather";
+import fetchAllWeather from "./FetchWeather";
 
 export default function Weather() {
   const [airQuality, setAirQuality] = useState(null);
@@ -48,30 +49,29 @@ export default function Weather() {
 
   const fetchWeather = async (lat, lon, resolvedCity = null) => {
     try {
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
-      const response = await axios.get(weatherUrl);
-      setWeatherData(response.data);
+      const result = await fetchAllWeather({
+        lat,
+        lon,
+        city,
+        unit,
+        apiKey,
+        sheCodesApiKey,
+      });
+
+      setWeatherData(result.weather);
+      setAirQuality(result.airQuality);
+      setHourlyForecast(result.hourlyForecast);
+      setDailyForecast(result.dailyForecast);
       setLastUpdated(new Date());
 
       if (!resolvedCity) {
-        setCity(response.data.name);
+        setCity(result.weather.name);
       }
-
-      const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-      const airResponse = await axios.get(airQualityUrl);
-      setAirQuality(airResponse.data.list[0]);
-
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
-      const forecastResponse = await axios.get(forecastUrl);
-      setHourlyForecast(forecastResponse.data.list.slice(0, 7));
-
-      const shecodesUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${sheCodesApiKey}&units=${unit}`;
-      const shecodesResponse = await axios.get(shecodesUrl);
-      setDailyForecast(shecodesResponse.data.daily.slice(0, 6));
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }
   };
+
 
   useEffect(() => {
     const resolveCityToCoords = async () => {
