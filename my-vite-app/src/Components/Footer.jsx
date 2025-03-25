@@ -15,7 +15,7 @@ export default function Footer() {
         </a>
         , is{" "}
         <a
-          href="https://github.com/CindaCodes/React-Weather-Forecast"
+          href="https://github.com/CindaCodes/AetherCast"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -23,7 +23,7 @@ export default function Footer() {
         </a>{" "}
         and{" "}
         <a
-          href="https://cindas-weather-forecast.netlify.app/"
+          href="https://aethercast.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
         >
